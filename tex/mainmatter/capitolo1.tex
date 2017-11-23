@@ -1,0 +1,193 @@
+%% Direttive TeXworks:
+% !TeX root = ../semprini_luca_tesi.tex
+% !TEX encoding = UTF-8 Unicode
+% !TEX program = arara
+% !TEX TS-program = arara
+% !TeX spellcheck = it-IT
+
+%% Direttive Arara:
+% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
+% arara: frontespizio
+% arara: biber
+% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
+% arara: pdflatex: { shell: yes, synctex: yes, action: nonstopmode, options: "-halt-on-error -file-line-error-style" }
+\chapter{Presentazione del linguaggio Kotlin}
+Kotlin è un linguaggio di programmazione a tipizzazione statica e forte, principalmente improntato su Java,
+quindi sul paradigma Object-Oriented, ma con importanti funzionalità proprie dei linguaggi funzionali.
+Essendo pensato per interoperare con il codice Java, viene eseguito sulla Java Virtual Machine,
+ma può anche essere compilato nel codice sorgente di JavaScript o utilizzando la struttura di compilazione LLVM
+(Low Level Virtual Machine). Il suo sistema Object-Oriented, come quello di Java, è basato sull'ereditarietà
+singola a livello di classe e sull'eredità multipla a livello di interfaccia. Solo le classi possono contenere dati e il codice di inizializzazione, mentre le interfacce possono contenere membri funzionali astratti e, eventualmente, loro predefinite implementazioni. Il suo sistema di tipi è basato su sottotipazione nominale (piuttosto che strutturale) con polimorfismo sottotipato (membri funzionali virtuali), con il supporto di generici - una forma di polimorfismo parametrico con parametri di tipo vincolati, varianza generica e proiezioni di tipo (una semplice forma ristretta dei tipi esistenziali, in qualche modo simili alle Java wildcards).\\
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.05]{logo.png}
+  \caption{{\bfseries Logo ufficiale di Kotlin dal febbraio 2016}}
+  \label{logoKt}
+\end{figure}
+
+\section{Caratteristiche principali}
+Come già accennato, proprio come Java, Kotlin è un linguaggio di programmazione staticamente tipizzato.
+Questo significa che il tipo di ogni espressione di un programma è noto al momento della compilazione
+e il compilatore può inferire che i metodi e i campi a cui si tenta di accedere esistano sugli oggetti
+che si sta utilizzando. \\
+Ciò è in contrasto con i linguaggi di programmazione dinamicamente tipizzati, che sono
+rappresentati nell’ambito JVM da, tra gli altri, Groovy e JRuby. Questi permettono di
+definire variabili e funzioni che possono memorizzare o restituire dati di qualsiasi tipo e risolvere metodi
+e riferimenti dei campi a runtime: ciò consente un codice più compatto e maggiore
+flessibilità nella creazione di strutture di dati. Ma il lato negativo è che i problemi come gli errori
+di battitura durante la scrittura degli identificativi delle variabili non possono essere rilevati durante
+la compilazione e causano errori di runtime. \\
+D'altra parte, contrariamente a Java, Kotlin non richiede di specificare il tipo di ogni variabile
+esplicitamente durante la scrittura del codice. In molti casi, il tipo delle variabili può venire
+automaticamente determinato dal contesto, consentendo di omettere la dichiarazione di tipo.
+La capacità del compilatore di determinare tipi dal contesto è chiamata {\em inferenza di tipo}. \\
+
+Alcuni dei vantaggi della tipizzazione statica sono:
+\begin{itemize}
+  \item {\bfseries Prestazioni -} I metodi di chiamata sono più veloci perché non c'è bisogno di capire in fase
+        di esecuzione quale metodo debba essere effettivamente chiamato.
+  \item {\bfseries Affidabilità -} Il compilatore verifica la correttezza del programma, quindi ci sono meno
+        possibilità di crash durante il runtime.
+  \item {\bfseries Manutenzione -} Lavorare con codice scritto da altri è più semplice e intuitivo, in quanto
+        si può vedere con quale tipo di oggetti il codice sta lavorando.
+  \item {\bfseries Tool-support -} La tipizzazione statica consente refactoring affidabili, auto completamento
+        preciso del codice e altre funzionalità a livello di IDE.
+\end{itemize}
+Grazie al supporto di Kotlin all'inferenza di tipo, la maggior parte della verbosità aggiuntiva associata
+alla tipizzazione statica scompare, perché non è più necessario dichiarare i tipi esplicitamente.
+Le classi, le interfacce e i generici funzionano in un modo molto simile a quello di Java, quindi la
+maggior parte delle conoscenze di Java, da parte degli sviluppatori, possono essere facilmente “riutilizzate”
+nell’apprendimento di Kotlin. Tuttavia, ci sono chiaramente delle novità: la più importante di queste è il sostegno
+di Kotlin per i tipi Nullable, che permettono di scrivere programmi più affidabili individuando eventuali
+\texttt{NullPointerException} a tempo di compilazione. Un'altra novità nel sistema di tipo di Kotlin è rappresentata
+dal suo supporto per i tipi funzionali. Per capire di cosa si tratti, verranno presentate le idee principali
+della programmazione funzionale e come essa sia supportata da Kotlin.\\
+
+Per quanto riguarda il paradigma della programmazione funzionale, i concetti chiave che Kotlin introduce sono i seguenti:
+\begin{itemize}
+  \item {\bfseries First-class functions –} Si lavora con funzioni (blocchi di codice) come valori primari.
+        È possibile, infatti, memorizzarle in variabili, passarle come parametri o restituirle da altre funzioni.
+  \item {\bfseries Immutabilità –} Si utilizzano oggetti immutabili, ovvero che garantiscono che il loro stato
+        interno non cambierà dopo la loro creazione.
+  \item {\bfseries Nessun side-effect –} Vengono utilizzate funzioni pure, che restituiscono
+        lo stesso risultato dati gli stessi parametri in ingresso e non modificano lo stato di altri oggetti,
+        né interagiscono con il mondo esterno.
+\end{itemize}
+La scrittura del codice nello stile funzionale può portare a diversi benefici.\\
+Innanzitutto, giova alla concisione: il codice funzionale può essere più elegante
+e sintetico rispetto alla sua controparte imperativa, perché lavorare con funzioni come valori può dare molta di più possibilità di astrazione, che può voler dire evitare la duplicazione nel codice. \\
+Un secondo beneficio del codice funzionale è la possibilità di utilizzare proprietà multithreading
+in maniera più sicura. Una delle più grandi fonti di errori nei programmi multithreaded consiste
+nella modifica degli stessi dati da parte di più thread senza una adeguata sincronizzazione;
+utilizzando strutture dati di tipo immutabile e le funzioni pure, si possono facilmente evitare tali errori,
+senza dover elaborare schemi di sincronizzazione particolarmente complicati. \\
+Infine, la programmazione funzionale può portare alla semplificazione della fase di testing,
+infatti, del codice senza effetti collaterali è di solito più facile da testare. \\
+In generale, lo stile funzionale può essere utilizzato con qualsiasi linguaggio di programmazione,
+tra cui Java, tuttavia non tutti i linguaggi forniscono il supporto sintattico e di libreria
+necessario per far sì che ciò avvenga senza sforzo; ad esempio, questo supporto è mancato molto
+nelle versioni di Java prima di Java 8. \\
+Kotlin ha un ricco set di funzionalità per supportare la programmazione funzionale, tra cui:
+\begin{itemize}
+  \item Tipi funzionali, che consentono alle funzioni di ricevere altre funzioni come parametri o di ritornare altre funzioni.
+  \item Le Lambda expressions permettono di passare blocchi di codice con un minimo boilerplate.
+  \item Data Classes, forniscono una sintassi estremamente sintetica per la creazione di oggetti di valore immutabile.
+  \item Un ampio set di API nella standard library per lavorare con oggetti e collezioni in stile funzionale.
+\end{itemize}
+Detto questo, Kotlin permette di programmare nello stile funzionale ma non lo impone,
+e naturalmente lavorare con framework che sono basati su interfacce e gerarchie di classi
+è tanto semplice quanto lo è in Java. Durante la scrittura del codice in Kotlin, è possibile
+combinare l’approccio Object-Oriented a quello funzionale e utilizzare gli strumenti più appropriati
+per il problema che si intende risolvere.\\
+
+\section{Storia di Kotlin}
+Lo sviluppo principale di Kotlin è stato effettuato da un team di ricercatori di JetBrains (famosa compagnia produttrice di numerose IDE, tra cui IntelliJ IDEA), con sede a San Pietroburgo, in Russia; Andrey Breslav, language designer a capo del progetto Kotlin, ha affermato che il nome deriva dall’Isola di Kotlin, situata nella parte orientale del Mar Baltico.\\
+La principale motivazione che spinse la software-house ad intraprendere lo sviluppo di un nuovo linguaggio di programmazione fu il fatto che i programmatori di JetBrains erano alla ricerca di un sostituto per Java da utilizzare nei loro prodotti, in quanto, raccogliendo appositamente feedback dalla community, se ne stavano riscontrando i principali limiti e vi era una scarsa prospettiva di vederli risolti nel breve periodo. La compagnia aveva una vasta code-base Java già esistente, quindi fu deciso che il nuovo linguaggio dovesse essere Java-compatibile. Vennero esaminati diversi linguaggi JVM, che avessero come uno dei requisiti la compilazione statica: con questa premessa, Scala risultò essere l'unica opzione percorribile nei linguaggi all’epoca esistenti. Dopo un periodo di testing, gli sviluppatori si scontrarono con alcune limitazioni di questo linguaggio, come la scarsa velocità di compilazione (e la prospettiva di riscontrare dei miglioramenti sotto questo punto di vista nel breve periodo era poco verosimile); inoltre, non risultava possibile un adeguato supporto IDE a causa della struttura stessa del linguaggio (infatti, tipicamente, uno dei motivi per cui le aziende si allontanano da Scala è la sua complessità e la sua propensione a portare il programmatore a scrivere codice poco leggibile). Dopo diverse consultazioni, la compagnia decise di creare il proprio linguaggio Java-compatibile, incentrando il progetto sulla praticabilità, con l’obiettivo di integrare funzionalità già testate in linguaggi diversi e di garantire un eccellente supporto IDE.\\
+
+Nasce così il Progetto Kotlin nel 2010, il cui scopo primario è quello di creare per gli sviluppatori un linguaggio general-purpose che possa servire come strumento utile che sia sicuro, conciso, flessibile e al 100\% Java-compatibile. Andrey Breslav ha affermato che Kotlin è progettato e pensato per essere un linguaggio orientato agli oggetti a livello industriale e, nelle intenzioni, un “linguaggio migliore" di Java, ma allo stesso tempo completamente interoperabile con il codice Java e tutto il suo enorme ecosistema, consentendo alle aziende di migrare gradualmente dal principale linguaggio JVM a Kotlin: anche se la sintassi non risulta compatibile con quella di Java, infatti, Kotlin è progettato per interoperarvi: si affida al codice Java tramite le Java Class Libraries esistenti, come il Collection Framework. \\
+
+Come accennato, nel creare Kotlin, JetBrains ha cercato di integrare diverse caratteristiche presenti in linguaggi già esistenti: per questo, molte delle sue funzionalità sono tratte da altri linguaggi JVM, in particolare da Groovy, Scala e ovviamente lo stesso Java, ma non solo: ulteriori spunti sintattici sono stati presi da linguaggi classici, come il Pascal e moderni come Go o F\#. Questo ha comportato, tuttavia, una sfida particolare per gli sviluppatori: in generale, infatti, qualsiasi funzionalità che interagisca con Java in maniera interoperativa che non abbia un'analogia diretta in Java sarà certamente difficile da implementare in maniera soddisfacente.\\
+
+Il suo primo annuncio ufficiale al pubblico risale al luglio 2011, mentre il lancio della prima versione del compilatore, la 0.1, avviene solo un anno dopo; nel febbraio 2012 JetBrains lo rende open-source, sotto la licenza Apache 2.0 rendendo il codice sorgente disponibile su GitHub (da allora oltre cento sviluppatori hanno contribuito al progetto), e la prima stable release ufficiale avviene quattro anni dopo, il 15 febbraio 2016 con Kotlin v1.0.\\
+Kotlin diviene un linguaggio ufficiale (“first-class”) di sviluppo per Android con l’annuncio avvenuto al Google I / O il 17 maggio 2017, diventando così il terzo linguaggio completamente supportato per Android, insieme allo stesso Java e C ++. Durante la conferenza, inoltre, è stata annunciata da parte di Android, oltre al supporto IDE, una collaborazione con JetBrains per creare una fondazione non-profit per Kotlin. \\
+Il supporto first-class su Android avrà probabilmente la conseguenza di portare altri utenti ad utilizzare Kotlin come principale linguaggio per le loro applicazioni; il team JetBrains afferma, dunque, di aspettarsi che la comunità cresca in modo significativo. Ciò significherà più librerie e tool sviluppati in/per Kotlin, più esperienza condivisa, offerte di lavoro che richiederanno la conoscenza di Kotlin, materiali di apprendimento pubblicati e così via.\\
+
+Il 3 e 4 Novembre 2017, viene inaugurata la prima conferenza mondiale a tema Kotlin, a San Francisco. Durante il keynote della KotlinConf, Andrey Breslav, anticipa l’annuncio del rilascio di Kotlin v1.2 Release Candidate. Le nuove funzionalità di questa release includono il supporto (ancora sperimentale) per i progetti multipiattaforma, che consente di condividere il codice tra i moduli che sono indirizzati a JVM e JavaScript, diversi miglioramenti linguistici e il potenziamento della funzionalità delle Coroutines (ancora etichettate come caratteristica sperimentale, etichetta che, secondo i piani del team di Kotlin, verrà rimossa nella release Kotlin 1.3). Un’altra importante novità consiste nell’annuncio ufficiale del supporto per lo sviluppo di applicazioni iOS utilizzando Kotlin / Native (di cui si discuterà in seguito); il supporto IDE per questo tipo di piattaforma, viene annunciato durante la stessa KotlinConf: verrà, infatti, rilasciata una versione iniziale di anteprima del plug-in Kotlin / Native per CLion (una IDE prodotta da JetBrains, principalmente per lo sviluppo di applicazioni C/C++). Il plug-in supporta CMake come sistema di compilazione ed include l'intero set di funzionalità di code-editing del plugin Kotlin per IntelliJ IDEA, nonché il supporto iniziale per la creazione di progetti, il test e il debugging.\\
+
+\section{Piattaforme Target}
+L'obiettivo primario di Kotlin è quello di fornire una più concisa, più produttiva e più sicura alternativa a Java che sia adatta in tutti i contesti in cui è utilizzato Java oggi. Java è un linguaggio estremamente popolare, ed è utilizzato in una vasta gamma di ambienti, dalle Smart Card (Java Card technology) ai più grandi data center gestiti da Google, Twitter, LinkedIn, e altre compagnie internet-scale. Nella maggior parte di questi ambiti, l'utilizzo di Kotlin può aiutare gli sviluppatori a raggiungere i loro obiettivi con meno codice e meno inconvenienti lungo la strada. Le aree di competenza più comuni per utilizzare Kotlin sono:
+\begin{itemize}
+  \item Sviluppo di codice lato server (tipicamente, i back-end delle applicazioni web).
+  \item Creazione di applicazioni mobile che eseguono su dispositivi Android.
+\end{itemize}
+Ma Kotlin lavora anche in altri contesti. Ad esempio, è possibile utilizzare la tecnologia Intel Multi- OS Engine 1 per eseguire il codice di Kotlin sui dispositivi iOS. Per creare applicazioni desktop è possibile utilizzare Kotlin insieme a JavaFX. Oltre a Java, Kotlin può anche essere compilato in JavaScript, consentendo di eseguire Codice Kotlin nel browser.\\
+Come si può vedere, dunque, il target di Kotlin è abbastanza ampio. Il linguaggio fornisce miglioramenti della produttività a tutto tondo per tutte le attività che vengono svolte durante il processo di sviluppo e dà un ottimo livello di integrazione con librerie che supportano domini specifici o paradigmi di programmazione. Si analizzeranno di seguito le piattaforme target fondamentali di Kotlin come linguaggio di programmazione.\\
+
+\subsection{Kotlin / JavaScript}
+Dalla release v1.1, il linguaggio di JetBrains ha il supporto appropriato per diversi tipi di moduli in JavaScript: questo significa che gli sviluppatori hanno la possibilità di utilizzare le stringhe, le collezioni, le sequenze, gli array e le altre API core Kotlin su JavaScript, come anche su JVM / Android. JetBrains supporta i popolari sistemi di runtime per JavaScript, insieme a webpack e altri strumenti importanti. Con Kotlin 1.2 e successive, la software-house intende migliorare l'attrezzatura JavaScript: "Il nostro obiettivo è quello di consentire un piacevole sviluppo a full-stack con Kotlin", ha dichiarato Breslav.\\
+Ci sono più modi per compilare Kotlin in JavaScript. L'approccio consigliato dal team di JetBrains consiste nell'utilizzare Gradle, ma è anche possibile costruire progetti JavaScript direttamente da IntelliJ IDEA, utilizzare Maven o compilare manualmente il codice dalla riga di comando.\\
+Quando compila in JavaScript, Kotlin esegue due file principali:
+\begin{itemize}
+  \item {\em kotlin.js}: La runtime e la standard library, indipendente dalle applicazioni e legato alla versione di Kotlin   usata.
+  \item {\em \{module\}.js}: Il codice effettivo dall'applicazione; infatti, tutti i file vengono compilati in un unico file JavaScript che ha lo stesso nome del modulo.
+\end{itemize}
+Inoltre, ognuno di questi ha anche un meta file ({\em \{file\}.meta.js}) corrispondente che verrà utilizzato per le reflection ed altre funzionalità.\\
+Per quanto riguarda lo sviluppo di front-end Web con Kotlin, dalla KotlinConf del 3 e 4 novembre, arriva la notizia del rilascio di wrapper Kotlin ufficiali per React.js, così come {\em create-react-kotlin-app}, una toolbox per la creazione di applicazioni web moderne in Kotlin usando React.js: con essa è possibile generare e iniziare subito a lavorare su applicazioni sul lato client senza preoccuparsi della configurazione del progetto, utilizzando tutti i vantaggi di un linguaggio staticamente tipizzato e la potenza dell'ecosistema JavaScript.\\
+
+\subsection{Kotlin / Server-Side}
+Il grande vantaggio di Kotlin in questo ambiente è la sua interoperabilità senza sforzo con il codice Java esistente. In questo senso, i problemi nell’estendere le classi Java in Kotlin sono pressoché inesistenti, con il vantaggio che il codice del sistema sarà più compatto, più affidabile e più facile da mantenere. Allo stesso tempo, Kotlin aggiunge una serie di nuove funzionalità per lo sviluppo di tali sistemi. Ad esempio, il suo supporto per il pattern builder consente di creare un qualsiasi object-graph con sintassi sintetica, pur mantenendo il set completo di strumenti di astrazione e di riutilizzo del codice nel linguaggio. Uno dei casi di utilizzo più semplici per questa funzionalità è una libreria di generazione HTML, che può sostituire un template di un linguaggio esterno con una soluzione interna concisa e completamente sicura. Un altro caso in cui è possibile utilizzare i DSL puliti e concisi di Kotlin è nei persistence framework: ad esempio, il framework Exposed fornisce un modo semplice per leggere i DSL per descrivere la struttura di un database SQL ed eseguire interrogazioni interamente dal codice Kotlin, con controllo completo. Durante la KotlinConf del 3 e 4 novembre è stata annunciata, in questo contesto, la versione 0.9 di {\em Ktor}, un framework web asincrono basato su Coroutines, utilizzato per costruire server e client in sistemi connessi utilizzando Kotlin. Ktor è già in uso in diversi progetti sia all'interno di JetBrains che nella community, e con questa release diventa una soluzione affidabile per la creazione di applicazioni Web ad altissime prestazioni.\\
+
+\subsection{Kotlin / Native}
+Il team Kotlin ha annunciato, in aprile 2017, la prima preview della tecnologia Kotlin / Native, che permette di compilare il codice Kotlin direttamente in linguaggio macchina. Il compilatore Kotlin / Native, infatti, produce eseguibili standalone che possono essere eseguiti senza alcun appoggio ad una macchina virtuale. La motivazione principale data dal team, direttamente sul blog ufficiale di JetBrains, riguarda l’impiego di questa tecnologia per il riutilizzo del codice multi-piattaforma: “si potranno scrivere interi moduli in Kotlin in modo indipendente dalla piattaforma e compilarli per qualsiasi piattaforma supportata (queste attualmente sono Kotlin / JVM, Kotlin / JS e il futuro Kotlin / Native)”. Questi moduli vengono chiamati dagli stessi sviluppatori “common modules”. Parti di un common module potrebbero richiedere un'implementazione platform-specific, che può così essere sviluppata singolarmente per ciascuna piattaforma. I moduli comuni forniscono un'API comune per tutti i client, ma altri moduli (specifici per la piattaforma) possono estendere queste API per fornire alcune funzionalità esclusive sulla propria piattaforma.\\
+Kotlin / Native utilizza l'infrastruttura di compilazione LLVM per generare codice macchina e le principali piattaforme di destinazione saranno Mac OS X 10.10 e versioni successive (x86-64), x86-64 Ubuntu Linux (14.04, 16.04 e versioni successive), ed altri tipi di Linux, Apple iOS (arm64), cross-compilato su un host MacOS X, e infine Raspberry Pi, cross-compilato su host Linux. Microsoft Windows non è ancora supportato, a causa della "differenza significativa nel modello di gestione delle eccezioni su MS Windows e altri target LLVM", ma "questa situazione potrebbe essere migliorata nelle prossime release", dice JetBrains. Molte altre caratteristiche, come le coroutine (recentemente introdotte per Kotlin e LLVM), non sono ancora disponibili. Più piattaforme possono essere aggiunte relativamente facilmente, a detta del team, a patto che il supporto LLVM sia disponibile per esse.\\
+
+Una funzionalità Kotlin / Native fortemente pubblicizzata, anche a questo punto iniziale del suo sviluppo, è l'interoperabilità con le funzioni C: esso può chiamare in modo efficiente le funzioni C e passare/ricevere dati ad/per esse. È possibile generare Kotlin bindings da un file di intestazione C a build-time e ottenere un accesso rapido e type-safe (i tipi di variabili C sono tutti supportati con controparti di Kotlin) a qualsiasi tipo di API nativa della piattaforma di destinazione.\\
+La gestione della memoria è stata lasciata deliberatamente aperta con Kotlin / Native. JetBrains afferma che è opportuno disporre di diverse opzioni di gestione della memoria a seconda della piattaforma di destinazione - ad esempio, la garbage collection per scenari desktop / server, il semplice conteggio delle referenze su piattaforme più piccole o la gestione manuale della memoria se necessario. L'unica opzione di gestione della memoria attualmente offerta è un counting system di riferimento, che risulta lento ma affidabile.\\
+
+L'utilizzo di LLVM apre una gamma molto più ampia di target di compilazione per Kotlin. Una delle possibilità è compilare il codice Kotlin nel formato bytecode portatile di WebAssembly: LLVM supporta WebAssembly come target di compilazione, che è diventato incrementalmente più pratico da utilizzare ora, tanto che la maggior parte dei browser più importanti ha un supporto provvisorio ad esso.
+Durante la KotlinConf 2017, è stata annunciata una preview release di strumenti di sviluppo per Kotlin / Native. Mentre viene utilizzato IntelliJ IDEA per lavorare con Kotlin, Kotlin / Native si integra con tecnologie del mondo nativo come il supporto Clang e LLDB: questa è la motivazione di JetBrains per la scelta di portare Kotlin / Native su CLion, la IDE per C e C ++.\\
+
+\subsection{Kotlin / Android}
+
+Kotlin è un'ottima soluzione per sviluppare applicazioni Android, come dimostra anche il suo supporto ufficiale da parte di Google citato in precedenza, portando tutti i vantaggi di un linguaggio moderno alla piattaforma Android senza però introdurre nuove restrizioni:
+\begin{itemize}
+  \item {\bfseries Compatibilità}: Kotlin è completamente compatibile con JDK 6, garantendo che le applicazioni Kotlin possano essere eseguite su vecchi dispositivi Android senza alcun tipo di problema. Il tooling di Kotlin è pienamente supportato in Android Studio, integrato senza bisogno di installare alcun plug-in dalla versione 3.0 e compatibile con il build system di Android.
+  \item {\bfseries Prestazioni}: un'applicazione Kotlin esegue tanto velocemente quanto una scritta in Java, grazie ad una struttura del bytecode molto simile. Con il supporto di Kotlin per le inline functions, il codice che utilizza lambda expressions è spesso addirittura più veloce dello stesso codice scritto in Java.
+  \item {\bfseries Interoperabilità}:  Kotlin è interoperabile al 100\% con Java, consentendo di utilizzare tutte le librerie Android esistenti in un'applicazione Kotlin.
+  \item {\bfseries Footprint}: Kotlin dispone di una runtime library molto compatta, il cui peso può essere ulteriormente ridotto grazie all'utilizzo del tool ProGuard. In un'applicazione reale, il tempo di esecuzione di Kotlin aggiunge solo poche centinaia di metodi e meno di 100KB alle dimensioni del file .apk.
+  \item {\bfseries Tempo di compilazione}: Kotlin supporta una compilazione incrementale efficiente, pertanto, mentre per build pulite è presente dell’overhead aggiuntivo, le build incrementali sono di solito tanto veloci quanto quelle con Java, e spesso anche di più.
+  \item {\bfseries Curva di apprendimento}: per uno sviluppatore Java, iniziare a programmare in Kotlin risulta pressoché semplice: oltre all’ovvia motivazione della sintassi molto simile, il convertitore Java-Kotlin automatico incluso nel plug-in Kotlin aiuta i primi approcci al linguaggio; Kotlin Koans offre una guida attraverso le caratteristiche principali del linguaggio (non solo in chiave Android) con una serie di esercizi interattivi.\\
+\end{itemize}
+
+\section{Filosofia di Kotlin}
+Kotlin è un linguaggio pragmatico, conciso e sicuro con particolare attenzione all'interoperabilità. Questa frase, come si analizzerà di seguito, può riassumere completamente la filosofia del linguaggio sviluppato da JetBrains.\\
+
+\subsection{Pragmatico}
+Questo termine non ha bisogno di essere interpretato in maniera particolare: Kotlin, infatti, è un linguaggio pratico progettato per risolvere i problemi del mondo reale. Il suo design si basa su molti anni di esperienza nel settore creando sistemi su larga scala e le sue funzionalità vengono scelte per affrontare i casi di utilizzo incontrati da molti sviluppatori di software, in particolare dalla stessa community Java. Inoltre, sia gli sviluppatori all'interno di JetBrains che quelli della community hanno utilizzato per diversi anni le versioni di Kotlin precedenti al rilascio ufficiale, così che il loro feedback permettesse di modellare al meglio e secondo esigenze reali la versione 1.0 del linguaggio. C’è da chiarire, inoltre, una problematica: Kotlin non è un linguaggio di ricerca, i suoi sviluppatori non stanno cercando di avanzare lo stato dell'arte nel design di linguaggi di programmazione né di esplorare idee innovative nella computer-science; invece, quando possibile, essi si sono affidati a funzionalità e soluzioni già disponibili in altri linguaggi di programmazione e che hanno dimostrato di essere affidabili e di successo. Ciò riduce la complessità del linguaggio e lo rende più facile da apprendere, facendo affidamento a concetti familiari.\\
+Inoltre, come già accennato, Kotlin non impone di utilizzare uno stile o un paradigma di programmazione particolare: iniziando a studiare il linguaggio, è possibile utilizzare lo stile e le tecniche conosciute dall'esperienza Java; acquisendo esperienza, si possono gradualmente integrare le caratteristiche più potenti di Kotlin, con la possibilità di imparare ad applicarle nel proprio codice, per renderlo più conciso e idiomatico.\\
+Un altro aspetto del pragmatismo di Kotlin è la sua attenzione ai tool di sviluppo: il plug-in di IntelliJ IDEA è stato sviluppato di pari passo con il compilatore, e le caratteristiche linguistiche sono sempre state sempre progettate con in mente la loro applicazione a livello di tool. Il supporto IDE svolge un ruolo importante anche per aiutare lo sviluppatore a scoprire e apprezzare appieno tutte le funzionalità di Kotlin. In molti casi, l’IDE rileverà automaticamente i blocchi di codice comuni che possono essere sostituiti da costrutti più concisi e suggerirà automaticamente una correzione del codice.\\
+
+\subsection{Conciso}
+È universalmente riconosciuto il fatto che gli sviluppatori spendano più tempo tentando di leggere il codice esistente che a scriverne di nuovo, infatti, solo dopo aver capito il codice circostante è possibile apportare delle modifiche ad una certa parte. Con la concisione di Kotlin è molto più semplice e immediato leggere e capire il codice di un programma per capirne il funzionamento. Un linguaggio è conciso se la sua sintassi esprime chiaramente l'intento del codice e non lo rende oscuro aggiungendo costrutti non necessari dal punto di vista della comprensione per specificare come l'intento stesso è compiuto. Gli sviluppatori del Kotlin team affermano di essersi assicurati che tutto il codice scritto sia denso di significato (“meaningful”), e non sia utilizzato semplicemente per soddisfare delle convenzioni.
+Moltissimo del classico Boilerplate Java (ci si riferisce al termine “boilerplate” intendendo sezioni di codice che vanno incluse in molte parti del programma con poca o nessuna alterazione, costringendo il programmatore a scrivere molte righe di codice per fare lavori minimi), come ad esempio getters, setters e la logica per assegnare parametri via costruttore ai campi, è implicita Kotlin e non complica in maniera eccessiva il codice sorgente; un altro esempio di boilerplate in Java può essere rappresentato dal dover scrivere eccessivo codice esplicito nei task più comuni, come individuare un elemento in una collection. Proprio come molti altri linguaggi moderni, Kotlin dispone di una ricca standard library che consente di sostituire queste sezioni ripetitive di codice con delle semplici chiamate a metodi di libreria.\\
+Il supporto di Kotlin alle lambda expressions permette, inoltre, di passare piccoli blocchi di codice direttamente alle stesse funzioni di libreria, permettendo di incapsulare tutte le parti comuni nella libreria e mantenere unicamente la porzione specifica nello user code. Tuttavia, allo stesso tempo, Kotlin non cerca di ridurre il codice sorgente al minor numero di caratteri possibile: ad esempio, anche se Kotlin supporta l'operazione di overloading, gli utenti non possono definire propri operatori, di conseguenza, gli sviluppatori di libreria non possono ad esempio sostituire i nomi dei metodi con sequenze di punteggiatura criptiche. Le parole, infatti, sono tipicamente più leggibili di semplice punteggiatura e facilitano la costruzione di documentazione, anche se sono in qualche modo più lunghe da scrivere. Il codice più conciso, in conclusione, richiede meno tempo in fase di scrittura e, cosa più importante, meno tempo in quella di (ri)lettura, ciò migliora la produttività e permette di velocizzare il processo di sviluppo e debugging.\\
+
+\subsection{Sicuro}
+- In generale, quando si parla di un linguaggio di programmazione sicuro, ci si riferisce ad un linguaggio il cui design impedisce alcuni tipi di errori all’interno di un programma. Naturalmente, questa non è una qualità assoluta, infatti il linguaggio non può chiaramente impedire tutti gli errori possibili; inoltre, c’è da aggiungere che una capacità particolare di impedire gli errori da parte di un linguaggio comporta, di solito, un certo costo: infatti, occorre dare al compilatore maggiori informazioni sul funzionamento previsto del programma, in modo che possa verificare che le informazioni corrispondano a ciò che il programma deve effettivamente fare. A causa di ciò, c'è sempre un compromesso (trade-off) tra il livello di sicurezza che si ottiene e la perdita di produttività necessaria per inserire annotazioni più dettagliate a tempo di compilazione. Gli sviluppatori di Kotlin affermano di aver cercato di raggiungere un livello di sicurezza superiore a quello di Java, con un minore costo complessivo: l'esecuzione sulla JVM prevede già molte garanzie di sicurezza, ad esempio, dal punto di vista della memoria, la prevenzione di buffer overflow e altri problemi causati da uso errato della memoria allocata dinamicamente. Come linguaggio staticamente tipizzato che lavora sulla JVM, Kotlin assicura anche la sicurezza a livello di tipo nelle applicazioni. Questo avviene con un costo inferiore rispetto a Java: non è necessario specificare tutte le dichiarazioni di tipo, in molti casi che il compilatore è in grado di inferire automaticamente i tipi. Kotlin va anche oltre, il che significa che più errori possono essere impediti dai controlli a tempo di compilazione invece che causare crash improvvisi durante il runtime. L’errore più importante e più comune, come già accennato, che Kotlin si sforza di rimuovere è la \texttt{NullPointerException}: il sistema di tipo di Kotlin traccia valori che possono e non possono essere null e vieta quelle operazioni che possono portare ad una NullPointerException a runtime. Il costo aggiuntivo richiesto per questo è minimo: la marcatura di un tipo come nullable richiede solo un singolo carattere, un punto interrogativo alla fine della dichiarazione di tipo. In aggiunta, Kotlin fornisce molti espedienti convenienti per gestire i dati null: questo risulta un grande aiuto nell'eliminare gli arresti improvvisi delle applicazioni. Un altro tipo di eccezione che Kotlin aiuta a evitare è la \texttt{ClassCastException}, che accade quando si assegna un tipo ad un oggetto senza prima verificare che sia effettivamente il tipo giusto. In Java, gli sviluppatori spesso escludono il controllo, perché il nome del tipo deve essere ripetuto sia nel controllo che nel seguente cast; in Kotlin, d'altro canto, il controllo e il cast vengono combinati in un'unica operazione: una volta che si è controllato il tipo, è possibile fare riferimento a membri di quel tipo senza ulteriori operazioni di cast. Quindi, non c'è motivo di evitare il controllo e non c’è la possibilità commettere errori di questo tipo.\\
+%TODO aggiungi codice esempio
+\subsection{Interoperabile}
+Gli sviluppatori di JetBrains sono stati chiari riguardo alla interoperabilità di Kotlin con il codice Java pre-esistente: è possibile farlo interagire e coesistere con Kotlin in maniera assolutamente trasparente e indipendentemente dal tipo di API la libreria richieda di utilizzare. Kotlin mette a disposizione la possibilità di chiamare metodi Java, estendere le classi Java e implementare interfacce, applicare annotazioni Java alle classi Kotlin e così via: classi e metodi di Kotlin possono essere chiamati esattamente come normali classi e metodi Java. In questo senso, il linguaggio consente la massima flessibilità nel mescolare il codice Java e Kotlin in qualsiasi punto del progetto, si parla perciò di interoperabilità superiore a qualsiasi altro linguaggio basato su JVM.\\
+Un’altra funzionalità interessante che contribuisce all’elevata interazione tra i due linguaggi è rappresentata dal tool convertitore “Java-to-Kotlin”, eseguibile su ogni singola classe del codice in maniera indipendente, senza dover andare a modificare null’altro all’interno del proprio progetto, esso funziona, infatti, indipendentemente dal ruolo della classe che si è deciso di convertire. Questo risulta essere uno strumento molto potente soprattutto dal punto di vista dell’apprendimento del linguaggio: esso può aiutare il programmatore durante l’avviamento all'apprendimento di Kotlin, aiutandolo ad esprimere dei comandi anche se non dovesse ricordare la sintassi esatta: è possibile, infatti, scrivere il blocco di codice che si desidera tradurre in un file Java, quindi incollalo in un file Kotlin e il convertitore offrirà automaticamente la traduzione immediata in codice Kotlin; il convertitore può lavorare anche nella maniera inversa, ovvero nella modalità “Kotlin-to-Java”.\\
+Un'altra area in cui Kotlin si concentra per fornire interoperabilità è il suo utilizzo di codice Java da librerie esistenti al più alto livello possibile. Ad esempio, Kotlin non ha un proprio collection framework, ma si basa completamente sulle classi di standard library di Java, estendendole con funzioni aggiuntive per renderne l’uso più comodo in Kotlin. Questo significa che non ci sarà mai bisogno wrappare o convertire gli oggetti quando si chiamano API Java da Kotlin o viceversa.: tutta la ricchezza di API fornita da Kotlin è disponibile a costo zero a tempo di esecuzione. Inoltre, il compilatore Kotlin può compilare un mix arbitrario di file sorgenti di Java e Kotlin, indipendentemente dal modo in cui dipendono l'uno dall'altro.\\
+
+Ora che la filosofia (oltre che alcune delle caratteristiche peculiari) di Kotlin sono state chiarite, nella prossima sezione, verrà discusso il processo di compilazione e di esecuzione del codice Kotlin, sia dalla riga di comando che utilizzando i diversi tool disponibili.
+
+
+\section{Compilazione}
+Il codice sorgente Kotlin è normalmente memorizzato in file con estensione {\em\.kt}. Il compilatore Kotlin analizza il codice sorgente e genera file {\em\.class}, proprio come il compilatore Java; questi file {\em\.class} generati vengono quindi confezionati ed eseguiti utilizzando la procedura standard per il tipo di applicazione su cui si sta lavorando. Nel caso più semplice, è possibile utilizzare il comando {\ttfamily kotlinc} per compilare il codice dalla riga di comando e successivamente utilizzare il comando {\ttfamily java} per eseguirlo:\\
+
+\noindent{\ttfamily kotlinc <source file or directory> -include-runtime -d <jar name>}\\
+{\ttfamily java -jar <jar name>}\\
+
+Il codice compilato con il compilatore Kotlin dipende dalla {\em Kotlin runtime library}: essa contiene le definizioni delle classi di libreria standard di Kotlin e delle estensioni che Kotlin aggiunge alle API Java standard. La runtime library deve essere in questo caso distribuita con la applicazione che si sta sviluppando. Nella maggior parte dei casi, ci si potrebbe trovare ad utilizzare un sistema di compilazione come Maven, Gradle (che si occupano in maniera trasparente di includere la runtime library di Kotlin come dipendenza della applicazione) o Ant per compilare il codice: Kotlin è, infatti, compatibile con tutti questi sistemi.\\

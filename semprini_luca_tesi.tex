@@ -1,0 +1,258 @@
+%% Direttive TeXworks:
+% !TeX root = ./semprini_luca_tesi.tex
+% !TEX encoding = UTF-8 Unicode
+% !TEX program = arara
+% !TEX TS-program = arara
+% !TeX spellcheck = it-IT
+
+%% Direttive Arara:
+% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
+% arara: frontespizio
+% arara: biber
+% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
+% arara: pdflatex: { shell: yes, synctex: yes, action: nonstopmode, options: "-halt-on-error -file-line-error-style" }
+
+\documentclass[%
+    a4paper,        % specifica il formato A4 (default: letter)
+    12pt,           % specifica la dimensione del carattere a 12
+    openright,      % serve per aprire i capitoli sulla destra
+    oneside,        % serve per fare fronteretro
+    % draft,        % evidenzia i punti in cui il testo sborda dai margini con delle barre nere, va tolta nella versione definitiva % TODO utile per il controllo
+    titlepage       % opzione necessaria per il pacchetto frontespizio
+]{book}
+\usepackage{a4wide}             % consente di avere più spazio nell'A4
+\usepackage[english,italian]{%
+    babel,          % serve per scrivere Indice, Capitolo, etc in Italiano
+    varioref        % introduce il comando \vref da usarsi nello stesso modo del comune \ref per i riferimenti
+} %Where the figures folder is located
+\usepackage[T1]{fontenc}        % serve per impostare la codifica di output del font come Latin1 (T1)
+\usepackage{lmodern}            % necessario per risolvere un errore col font, si può usare times o lmodern (o probabilmente anche altro)
+%\usepackage{lmodern}           % catica un variante Latin Modern prodotto dal GUST (gruppo utenti di TEX polacco)
+%\usepackage{newtxtext}         % insieme a {newtxmath} carica font Times, Times Italic e Helvetica
+%\usepackage{newtxmath}         % insieme a {newtxtext} carica font Times, Times Italic e Helvetica
+\usepackage{textcomp}           % serve per fornire supporto ai Text Companion fonts
+\usepackage[utf8]{inputenc}     % serve per impostare la codifica di input del font come UTF8 (codifica di questo file .tex)
+\usepackage{listings, chngcntr}           % fondamentale per gli snippet di codice
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{indentfirst}        % serve per avere l'indentazione all'inizio di capitoli, sezioni, etc
+\usepackage{setspace}           % serve a fornire comandi di interlinea standard, alternativi a \linespread{}
+\usepackage{fancyhdr}           % serve per impaginare bene la tesi
+%\usepackage{refcheck}          % serve per controllare l’utilizzo dei \label e dei \ref, va tolta nella versione definitiva    %TODO utile per il controllo
+%\usepackage{showkeys}          % serve per mostrare le etichette, va tolta nella versione definitiva                           %TODO utile per il controllo
+\usepackage{xcolor}             % serve per la gestione dei colori nel testo
+\usepackage{graphicx}           % serve per includere immagini e grafici
+%\usepackage{pgfplots}
+%\pgfplotsset{compat=1.15}
+
+\renewcommand{\lstlistingname}{Esempio}% Listing -> Esempio
+
+%definizione di alcuni colori
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+%definizione del linguaggio Java per listings
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{\$\$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+
+%definizione del linguaggio XML per listings
+\lstdefinelanguage{XML}{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}
+}
+\lstset{
+  basicstyle=\scriptsize\sffamily\color{black},
+  frame=single,
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{gray},
+  showspaces=false,
+  showstringspaces=false,
+  tabsize=1
+}
+
+%definizione del linguaggio Kotlin per listings
+\lstdefinelanguage{Kotlin}{
+  keywords={package, as, typealias, this, super, val, var, fun, for, null, true, false, is, in, throw, return, break, continue, object, if, try, else, while, do, when, yield, typeof, yield, typeof, data, class, interface, enum, object, override, public, private, get, set, import, abstract, ->, infix, it, operator, suspend },
+  keywordstyle=\color{NavyBlue}\bfseries,
+  ndkeywords={@Deprecated, @Test, ReplaceWith, Iterable, Int, Integer, Float, Double, String, Boolean, View, ViewHolder, Runnable, dynamic},
+  ndkeywordstyle=\color{BurntOrange}\bfseries,
+  emph={println, return@, forEach,},
+  emphstyle={\color{OrangeRed}},
+  identifierstyle=\color{black},
+  sensitive=true,
+  commentstyle=\color{gray}\ttfamily,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  stringstyle=\color{ForestGreen}\ttfamily,
+  morestring=[b]",
+  morestring=[s]{"""*}{*"""},
+}
+
+\usepackage[htt]{hyphenat}      % Enable hyphenation of TT text
+\hyphenation{                   % Permette di sillabare bene le parole
+    Kotlin
+    Script
+    script
+    Pack-age
+    pack-age
+    Manage-ment
+    manage-ment
+    Com-munity
+    com-munity
+}
+
+\setcounter{secnumdepth}{2}     % Numera fino alla sottosezione nel corpo del testo
+\setcounter{tocdepth}{3}        % Numera fino alla sotto-sottosezione nell'indice
+
+
+\usepackage[%
+    write,          % alternativa a nowrite, crea il file *-frn.tex
+    %nowrite,       % alternativa a write, non crea il file *-frn.tex
+    standard,       % alternativa a suftesi, crea un frontespizio standard
+    %signatures,    % lascia fra i nomi dei relatori lo spazio per le loro firme
+    %noadvisor,     % opzione per non mostrare il relatore
+    swapnames,      % scambia la posizione dei nomi di relatori e candidato
+    normal          % alternativa a sans, utilizza un font "normale"
+    %sans,          % alternativa a normal, utilizza un font senza grazie
+    %norules,       % eliminano i filetti fra il nome dell’ateneo e quello della facoltà e sopra l’indicazione dell’anno accademico
+    %nouppercase,   % disabilita il maiuscoletto nel nome della facoltà
+    %noinputenc,    % disabilita la trascrizione dell'inputenc nel preambolo
+    %onlyinclude    % disabilita tutte le altre opzioni
+]{frontespizio}                 % serve a costruire un buon frontespizio
+%\usepackage{fncychap}          % serve a personalizzare il formato dei titoli dei capitoli
+%\usepackage[]{titlesec}        % una volta definito lo stile nel preambolo con \titleformat formatta i \chapter{}
+%\usepackage{enumitem}          % serve a personalizzare liste enumerate, itemize e description
+%\usepackage{minitoc}           % serve a creare mini-indici all'inizio di capitoli particolarmente complessi
+%\usepackage{epigraph}          % serve a creare epigrafi
+%\usepackage{amssymb}           % abilita i font matematici forniti dall’American Mathematical Society, carica anche {amsfonts}
+%\usepackage{mathtools}         % carica {amsmath} e fornisce estensioni per il miglioramento della struttura informativa e della stampa fi formule matematiche
+%\usepackage{relsize}           % consente di assegnare dimensioni relative con i comandi \smaller e \larger
+%\usepackage{latexsym}
+\usepackage[%
+    strict,             % rende tutti gli warning degli errori
+    autostyle,          % imposta lo stile in base al linguaggio specificato in babel
+    english=american,   % imposta lo stile per l'inglese
+    italian=guillemets  % imposta lo stile per l'italiano
+]{csquotes}                     % serve a impostare lo stile delle virgolette
+\usepackage[%
+    maxcitenames=2,     % massimo numero di nomi nelle citazioni
+    mincitenames=2,     % minimo numero di nomi nelle citazioni
+    maxbibnames=99,     % massimo numero di nomi nella blibliografia
+    minbibnames=99,     % minimo numero di nomi nella blibliografia
+    style=numeric,      %
+    giveninits=true,    %
+    backend=biber       % specifica il backend per la bibliografia
+]{biblatex}                     % si interfaccia con bibtex e biber per la bibliografia
+\addbibresource{biblio.bib}
+\usepackage[%
+    %notbib,            % rimuove la bibliografia dall'indice
+    notindex,           % rimuove l'indice dall'indice
+    nottoc,             % rimuove la Table of Contents dall'indice
+    notlot,             % rimuove la lista delle tabelle dall'indice
+    notlof,             % rimuove la lista delle figure dall'indice
+    %chapter,           % "Use chapter-level headings, if possible"
+    %section,           % "Use section-level headings, if possible"
+    %numbib             % numera il capitolo della bibliografia
+    %numindex           % numera il capitolo dell'indice
+]{tocbibind}
+
+\onehalfspacing                 % Imposta interlinea a 1,5 ed equivale a \linespread{1,5}
+
+
+%% Definisce l'environment abstract per la classe book
+\newenvironment{abstract}%
+    {\cleardoublepage%
+        \thispagestyle{empty}%
+        \null \vfill\begin{center}%
+            \bfseries \abstractname \end{center}}%
+    {\vfill\null}
+
+
+\setcounter{secnumdepth}{2}     % Numera fino alla sottosezione nel corpo del testo
+\setcounter{tocdepth}{3}        % Numera fino alla sotto-sottosezione nell'indice
+%\pdfoptionpdfminorversion=7    % TODO Dovrebbe risolvere il problema di inclusione di pdf 1.5 in 1.4, ma non funziona
+
+%\usepackage[a-1b]{pdfx}        % Permette di generare PDF/A con specifica 1b, TODO verificare
+% La chiamata deve essere ritardata il più possibile, ma deve essere prima di hyperref
+
+\usepackage{hyperxmp}           % Simile ad hyperref
+\usepackage{hyperref}           % Gestisce tutte le cose ipertestuali del pdf
+\hypersetup{%
+    pdfpagemode={UseOutlines},
+    hidelinks,          % nasconde i collegamenti (non vengono quadrettati)
+    hypertexnames=false,
+    linktoc=all,        % inserisce i link nell'indice
+    bookmarks=true,
+    bookmarksopen,
+    bookmarksopenlevel=3,
+    plainpages=false,
+    breaklinks,
+    pdfstartview={FitH},
+    pdfauthor={Luca Semprini},
+    pdfcopyright={Copyright (C) 2017, Luca Semprini},
+    pdftitle={Kotlin: un nuovo linguaggio per lo sviluppo di applicazioni Android},
+    pdfcontactcountry={Italy},
+    pdfcontactemail={luca.semprini10@studio.unibo.it},
+    pdflang={it},
+    pdfsubject={Subject},
+    pdfkeywords={Kotlin, Android, Java},
+    pdfa
+}
+\usepackage[all]{hypcap}        % sistema i problemi di hyperref
+
+
+\begin{document}
+    \frontmatter
+    \pagenumbering{Roman}
+    \input{tex/frontmatter/frontespizio.tex}
+    \input{tex/frontmatter/keyword.tex}
+    \input{tex/frontmatter/dedica.tex}
+    \input{tex/frontmatter/abstract.tex}
+    \tableofcontents
+
+    \graphicspath{{./img/}}
+    \mainmatter
+    \counterwithin{lstlisting}{section}
+    \counterwithin{figure}{section}
+    \input{tex/mainmatter/introduzione.tex}
+    \input{tex/mainmatter/capitolo1.tex}
+    \input{tex/mainmatter/capitolo2.tex}
+    \input{tex/mainmatter/capitolo3.tex}
+    \input{tex/mainmatter/capitolo4.tex}
+    % \input{tex/frontmatter/appendice.tex}
+
+    \backmatter
+    \input{tex/backmatter/bibliografia.tex}
+    % \listoffigures
+    % \listoftables
+    % \input{tex/backmatter/ringraziamenti.tex}
+\end{document}

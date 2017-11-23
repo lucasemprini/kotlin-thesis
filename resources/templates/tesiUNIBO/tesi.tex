@@ -1,0 +1,127 @@
+\documentclass[12pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage[italian]{babel}
+\usepackage{fixltx2e,bold-extra,geometry,
+    amssymb,amsmath,mathtools, microtype,url,cite}
+\usepackage[bookmarks=true, hidelinks, pdftitle={
+SELEZIONE DI TOPOLOGIE D'ANTENNA MINIATURIZZATE SU MD},
+pdfauthor={Alex Pacini}]{hyperref}
+% \pagestyle{headings}
+\graphicspath{{images/}}
+
+%%%%%%%%%%%%%%%%% New Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\newcommand{\intentblankpage}{
+%     Leaves a blank page
+    \newpage
+    \null
+    \vfill
+    \thispagestyle{empty}
+    \begin{center}
+%         \textit{This page intentionally left blank.}
+        \textit{Questa pagina \`e lasciata intenzionalmente bianca.}
+    \end{center}
+    \newpage
+}
+% 
+% Writes intentionally blank page when there is a \newpage on the left page of
+% a book.
+\makeatletter
+    \def\cleardoublepage{\clearpage%
+        \if@twoside
+            \ifodd\c@page\else
+                \vspace*{\fill}
+                \hfill
+                \begin{center}
+%                     \textit{This page intentionally left blank.}
+                    \textit{Questa pagina \`e lasciata intenzionalmente bianca.}
+                \end{center}
+                \thispagestyle{empty}
+                \newpage
+                \if@twocolumn\hbox{}\newpage\fi
+            \fi
+        \fi
+    }
+\makeatother
+%
+% Length to set margins for 65 chars
+\newlength{\sixtyfivecharwidth}
+\settowidth{\sixtyfivecharwidth}{
+    \normalfont abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz1234567890123}
+% 
+%Integral with the limit below(mathrlap)
+% \newcommand{\intlimr}[1]{\ensuremath{\int \limits_{\mathrlap{#1}}}}
+% 
+% This redefine could cause big issues! See: 
+% http://tex.stackexchange.com/questions/248421/use-mathclap-as-default-in-limits-of-integration
+% \let\oldlimits\limits
+% \def\limits_#1{\oldlimits_{\mathclap{#1}}}
+\def\mclimits_#1{\limits_{\mathclap{#1}}}
+%%%%%%%%%%%%%%%% End New Commands %%%%%%%%%%%%
+
+\begin{document}
+    \pagenumbering{Roman}
+    \input{./titlepage}
+    \intentblankpage
+    
+    \newgeometry{text={\sixtyfivecharwidth,35\baselineskip}}
+    \vspace*{50mm}
+    \begin{flushright}
+        {\Large{\bf Keywords:}\\ \vspace{5mm}
+            Magneto-Dielettrico\\ \vspace{2mm}
+            Correnti Superficiali\\ \vspace{2mm}
+            Topologie di Antenne\\ \vspace{2mm}
+            Far-Field\\
+        }
+    \end{flushright}
+    
+    \intentblankpage
+    
+    \vspace*{50mm}
+    \begin{flushright}
+        \textit{\large Dedica \\ corta}
+    \end{flushright}
+    
+    \newpage
+    
+    \vspace*{30mm}
+    \begin{flushright}
+        \textit{\large Citazione 
+            \\ \vspace{5mm}  - Tizio Caio -}
+    \end{flushright}
+    
+    \vfill
+    
+    \noindent \hspace{20mm} \textit{\large{Ringraziamenti:}} \vspace{5mm}\\
+    Da scrivere
+    
+    \newpage
+    \tableofcontents
+    
+    \chapter{Introduzione} \pagenumbering{arabic}
+    \label{CH:Intro}
+    \input{./introduzione}
+    
+    \chapter{Formulazione teorica}
+    \label{CH:Teoria}
+    \input{./capI}
+    
+    \chapter{Validazione numerica}
+    \label{CH:Val_num}
+    \input{./capII}
+    
+    \chapter{Conclusioni}
+    \label{CH:Concl}
+    \input{./conclusioni}
+    
+    \chapter{Riconoscimenti}
+    \label{CH:Ric}
+    \input{./riconoscimenti}
+    
+%     \nocite{*}
+    \bibliographystyle{IEEEtran}
+    \bibliography{myworks,books,journals,conferences,others}
+    
+    \listoffigures
+\end{document}

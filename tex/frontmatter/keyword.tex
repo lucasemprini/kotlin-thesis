@@ -1,0 +1,41 @@
+%% Direttive TeXworks:
+% !TeX root = ../../semprini_luca_tesi.tex
+% !TEX encoding = UTF-8 Unicode
+% !TEX program = arara
+% !TEX TS-program = arara
+% !TeX spellcheck = it-IT
+
+%% Direttive Arara:
+% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
+% arara: frontespizio
+% arara: biber
+% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
+% arara: pdflatex: { shell: yes, synctex: yes, action: nonstopmode, options: "-halt-on-error -file-line-error-style" }
+\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}%
+    \cleardoublepage}}
+\clearemptydoublepage
+\thispagestyle{empty}
+\vspace*{20ex}
+\begin{flushright}
+    \begin{LARGE}
+        \textbf{Parole chiave}\\
+        \vspace{5ex}
+    \end{LARGE}
+    \begin{normalsize}
+        \textbf{%
+            Kotlin\\%
+            %
+            % %
+            %
+            Android\\%
+            \medskip
+            % Java
+            % \medskip
+            %
+            %\medskip
+            %
+        }
+    \end{normalsize}
+\end{flushright}
+\vfill
+\clearemptydoublepage

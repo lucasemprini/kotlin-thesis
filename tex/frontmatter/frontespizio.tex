@@ -1,0 +1,38 @@
+%% Direttive TeXworks:
+% !TeX root = ../semprini_luca_tesi.tex
+% !TEX encoding = UTF-8 Unicode
+% !TEX program = arara
+% !TEX TS-program = arara
+% !TeX spellcheck = it-IT
+
+%% Direttive Arara:
+% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
+% arara: frontespizio
+% arara: biber
+% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
+% arara: pdflatex: { shell: yes, synctex: yes, action: nonstopmode, options: "-halt-on-error -file-line-error-style" }
+
+\begin{frontespizio}
+    \Universita{Bologna}
+        \Istituzione{%
+            Alma Mater Studiorum - Università di Bologna \\%
+            Campus di Cesena%
+        }
+        \Divisione{Scuola di Scienze}
+        \Corso[Laurea]{Ingegneria e Scienze Informatiche}
+        \Annoaccademico{2016-2017}
+        % \Titoletto{Tesi di laurea}
+        \Titolo{%
+            Kotlin: un nuovo linguaggio \\%
+            per lo sviluppo di applicazioni \\%
+            Android%
+        }
+        \Sottotitolo{Tesi in Programmazione ad Oggetti}
+        \Candidato{Luca~Semprini}
+        \NCandidato{Presentata da}
+        \Relatore{Prof.~Mirko~Viroli}
+        \Piede{%
+            II sessione di laurea \\%
+            Anno Accademico 2016 - 2017%
+        }
+    \end{frontespizio}

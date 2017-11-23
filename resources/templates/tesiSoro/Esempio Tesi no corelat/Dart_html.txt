@@ -1,0 +1,13 @@
+<html>
+ <body>
+  <script type=’application/dart’>
+   #source(CiaoMondo.dart)
+   void main() {
+    hello(’Dart integrato in HTML’);
+   }
+  </script>
+  <div id="message"></div>
+ </body>
+</html>
+
+

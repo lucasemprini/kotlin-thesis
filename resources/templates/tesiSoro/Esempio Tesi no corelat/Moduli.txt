@@ -1,0 +1,32 @@
+Un modulo pu\'o essere definito come una parte  o un componente di qualcosa di pi\'u grande (es: modulo di pagamento) e lo stesso concetto può essere utilizzato in fase di progettazione di un'applicazione.
+JavaScript \'e un linguaggio molto libero e flessibile,di conseguenza si pu\'o avere del codice disordinato,per evitare questo problema è stato studiato il module pattern che permette una divisione delle varie porzioni di codice in base allo scopo per cui sono state create.
+I moduli sono utili non solo per mantenere ordinato il progetto,ma anche per tenere alcune parti di codice private, creare delle API pubbliche richiamabili da altri moduli, evitare conflitti di nomi molto difficili da risolvere in fase di debug per distinguere facilmente lo scopo di funzioni e variabili dai nomi simili.
+
+IMPLEMENTAZIONE
+
+Non \'e necessario appoggiarsi ai framework per l'implementazione del module pattern,poichè può essere interamente costruito in JavaScript. Per creare un modulo in JS \'e necessario assegnare ad una variabile globale una funzione anonima, dentro la quale si istanzieranno le variabili e le funzioni private;nel return si inseriscono invece le funzioni pubbliche che si vogliono rendere accessibili dal resto del programma.
+
+***ESEMPIO PAG 55****
+
+Come emerge dall'esempio, le funzioni pubbliche possono essere richiamate specificando il nome della variabile globale e la funzione di cui si necessita.
+Per applicazioni di piccola grandezza l'uso dei moduli \'e sufficiente a garantire ordine, in applicazioni medio-grandi invece si necessita spesso di un' ulteriori divisione dei moduli in sotto-moduli, che saranno implementati con la stessa logica; diventano quindi delle funzioni pubbliche del primo modulo composte da funzioni pubbliche e private.
+Per accedere ad una funzione di un sotto-modulo si deve perciò passare sia dal modulo padre che dal secondo modulo, portando ad un ulteriore livello di divisione delle funzioni in base allo scopo.
+Una buona pratica, se si hanno dei moduli di una discreta grandezza,\'e dividerli fisicamente in file separati e inclusi nel file HTML dentro ai tag SCRIPT.
+
+OTTIMIZZAZIONE DEL DOWNLOAD DELLE DIPENDENZE
+
+Nella maggior parte dei browser il tag SCRIPT blocca la normale esecuzione dell'applicazione finch\'e il download non termina e il codice non viene interamente eseguito.
+Per evitare problematiche HTML5 ha introdotto due attributi del tag SCRIPT che migliorano drasticamente il tempo di caricamento della pagina:defer e async.
+\begin{enumerate}
+\item -Defer: specifica che il codice contenuto nel file venga eseguito solo al completo caricamento della pagina.
+\item -Async: specifica che lo script viene venga eseguito in maniera asincrona con il caricamento della pagina
+\end{enumerate}
+Suddividendo l'applicazione in moduli e salvandoli su file distinti c'\'e per'o il rischio che una parte dell'applicazione non sia scaricata in tempo e che il corpo principale provi ad eseguire una funzione pubblica di un modulo non ancora completamente scaricato.
+In questa eventualit\'a l'utente riscontra inevitabilmente un malfunzionamento,oppure un blocco parziale o totale dell'applicazione.
+
+Per risolvere tale problema sono state sviluppate librerie che gestiscono il download asincrono dei moduli e che permettono l'inizio dell'esecuzione di un modulo solo dopo che tutte le relative dipendenze sono scaricate e disponibili.
+Per poter funzionare hanno bisogno di una piccola configurazione nella quale si devono specificare per ogni modulo tutte le dipendenze necessarie, dopo di che la libreria si occuper\'a della gestione dei download e della corretta esecuzione dei moduli.
+
+
+
+*****BIBLIOGRAFIA:da inserire www.w3schools.com*****
