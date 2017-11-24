@@ -13,7 +13,7 @@
 % arara: pdflatex: { shell: yes, synctex: yes, action: nonstopmode, options: "-halt-on-error -file-line-error-style" }
 
 \chapter{La sintassi di Kotlin}
-Come accennato nel capitolo precedente, la sintassi di Kotlin è destinata ad essere concisa, ma senza pregiudicare la leggibilità. Essa sostiene la tradizionale struttura a blocchi nidificati basata sulle parentesi graffe, ma presenta anche inferenze implicite di punti e virgola: questo significa che sarà totalmente facoltativo inserirli al termine di un’operazione. I whitespace (tranne gli a capo) sono generalmente non significativi (ad eccezione di stringhe e caratteri letterali), ma in alcuni casi sono necessari per separare alcuni token. La sintassi di Kotlin prende particolarmente spunto da quella di linguaggi come Scala, Groovy e ovviamente Java; gli sviluppatori del team diretto da Andrey Breslav hanno cercato di coniugare le peculiarità di questi linguaggi di riferimento, per creare un nuovo linguaggio JVM che potesse superarne i limiti sintattici e semantici. Il paradigma principale sul quale si fonda è quello ad oggetti, ma inserendovi caratteristiche di tipo funzionale: le funzioni possono essere, quindi, considerate come valori "first-class": hanno tipo, possono essere passate come argomenti, restituite come valori di ritorno e memorizzate in variabili locali, campi di classi ed elementi di array.\\
+Come accennato nel capitolo precedente, la sintassi di Kotlin è destinata ad essere concisa, ma senza pregiudicare la leggibilità. Essa sostiene la tradizionale struttura a blocchi nidificati basata sulle parentesi graffe, ma presenta anche inferenze implicite di punti e virgola: questo significa che sarà totalmente facoltativo inserirli al termine di un'operazione. I whitespace (tranne gli a capo) sono generalmente non significativi (ad eccezione di stringhe e caratteri letterali), ma in alcuni casi sono necessari per separare alcuni token. La sintassi di Kotlin prende particolarmente spunto da quella di linguaggi come Scala, Groovy e ovviamente Java; gli sviluppatori del team diretto da Andrey Breslav hanno cercato di coniugare le peculiarità di questi linguaggi di riferimento, per creare un nuovo linguaggio JVM che potesse superarne i limiti sintattici e semantici. Il paradigma principale sul quale si fonda è quello ad oggetti, ma inserendovi caratteristiche di tipo funzionale: le funzioni possono essere, quindi, considerate come valori "first-class": hanno tipo, possono essere passate come argomenti, restituite come valori di ritorno e memorizzate in variabili locali, campi di classi ed elementi di array.\\
 
 \section{Esempio di Hello World}
 Per inquadrare la sintassi basilare del linguaggio, si riporta di seguito un esempio classico di un programma che stampi "Hello, world": in Kotlin esso consiste in una singola funzione:\\
@@ -57,8 +57,8 @@ La dichiarazione di una variabile, in Kotlin, viene effettuata digitando inizial
   \item {\bfseries\texttt{val}}: Riferimento mutabile. Il valore di tale variabile può essere modificato: questa dichiarazione corrisponde a una normale variabile Java (non \texttt{final}).
 \end{itemize}
 
-Successivamente va digitato l’identificativo, e infine, facoltativamente, il tipo: infatti, il compilatore permette l’inferenza di tipo anche per la dichiarazione di variabili, anche se, ovviamente, il compilatore non può dedurre il tipo se non si forniscono informazioni sui valori che possono
-essere assegnati a questa variabile (quindi nel caso di non specificazione del tipo, va sempre eseguito un assegnamento). Si noti, quindi, l’equivalenza delle seguenti scritture:
+Successivamente va digitato l'identificativo, e infine, facoltativamente, il tipo: infatti, il compilatore permette l'inferenza di tipo anche per la dichiarazione di variabili, anche se, ovviamente, il compilatore non può dedurre il tipo se non si forniscono informazioni sui valori che possono
+essere assegnati a questa variabile (quindi nel caso di non specificazione del tipo, va sempre eseguito un assegnamento). Si noti, quindi, l'equivalenza delle seguenti scritture:
 
 \begin{lstlisting}[caption={Inferenza di tipo}, captionpos=b, label={lst:exampleInferenzaDiTipo}, language=Kotlin]
 val number: Int = 1 //Tipo esplicitato
@@ -67,7 +67,7 @@ val number = 1      //Il tipo viene inferito dal compilatore
 
 Per quanto riguarda il sistema di tipi, in Kotlin esiste un singolo tipo di root (\texttt{kotlin.Any?}) e ogni altro tipo è suo sottotipo (si parla, quindi, di un sistema di tipi unificato): una delle grandi differenze di Kotlin rispetto a Java è che nel linguaggio progettato dal team di JetBrains tutto è un oggetto; non esistono, quindi, speciali tipi primitivi che vengono trattati in modo diverso dagli oggetti. Tuttavia, per motivi di prestazioni, quando possibile, il compilatore Kotlin mapperà questi tipi di base con quelli primitivi della JVM.\\
 
-Nella gestione delle stringhe, Kotlin aggiunge una funzionalità che semplifica diverse situazioni: essa viene denominata "{\em String templates}". Come molti linguaggi di scripting, Kotlin permette di fare riferimento a variabili locali nelle rappresentazioni di stringhe, mettendo il carattere "\texttt{\$}" davanti al nome della variabile che si desidera chiamare (se vi è la necessità di inserire il carattere "\texttt{\$}" all’interno di una stringa è possibile utilizzare l’operatore di escape "\texttt{\textbackslash}" prima del carattere stesso). Questo equivale alla concatenazione stringhe in Java (\texttt{"Chiamata " + variabile + " in Java"}), ma risulta molto più compatto e altrettanto efficiente, inoltre, le espressioni vengono controllate staticamente e il codice non verrà compilato se si tenta di fare riferimento a una variabile che non esiste. Oltre alle semplici variabili, è possibile inserire in uno String template anche espressioni più complesse, semplicemente circondandole da parentesi graffe (questa notazione permette anche di nidificare le doppie virgolette all’interno di una rappresentazione di stringa):\\
+Nella gestione delle stringhe, Kotlin aggiunge una funzionalità che semplifica diverse situazioni: essa viene denominata "{\em String templates}". Come molti linguaggi di scripting, Kotlin permette di fare riferimento a variabili locali nelle rappresentazioni di stringhe, mettendo il carattere "\texttt{\$}" davanti al nome della variabile che si desidera chiamare (se vi è la necessità di inserire il carattere "\texttt{\$}" all’interno di una stringa è possibile utilizzare l’operatore di escape "\texttt{\textbackslash}" prima del carattere stesso). Questo equivale alla concatenazione stringhe in Java (\texttt{"Chiamata " + variabile + " in Java"}), ma risulta molto più compatto e altrettanto efficiente, inoltre, le espressioni vengono controllate staticamente e il codice non verrà compilato se si tenta di fare riferimento a una variabile che non esiste. Oltre alle semplici variabili, è possibile inserire in uno String template anche espressioni più complesse, semplicemente circondandole da parentesi graffe (questa notazione permette anche di nidificare le doppie virgolette all'interno di una rappresentazione di stringa):\\
 
 \begin{lstlisting}[caption={String Template}, captionpos=b, label={lst:exampleStringTemplate}, language=Kotlin]
 fun main(args: Array<String>) {
@@ -96,9 +96,9 @@ In Java, la combinazione del campo e dei suoi metodi accessori (getter e setter)
   \label{KotlinProperties}
 \end{figure}
 
-La figura \ref{KotlinProperties} rappresenta un esempio di come sia semplice la sintassi Kotlin per chiamare metodi getter e setter di classi definite in Java.\\
+La figura \ref{KotlinProperties} rappresenta un esempio di come sia semplice la sintassi Kotlin per chiamare metodi getter e setter da classi definite in Java.\\
 
-È inoltre possibile utilizzare questa sintassi delle proprietà di Kotlin per le classi definite in Java.
+È inoltre possibile utilizzare questa sintassi delle proprietà di Kotlin per le classi definite in Java.\\
 In particolare, getter in una classe Java sono accessibili come proprietà \texttt{val} da Kotlin, e le coppie getter/setter possono essere accedute come proprietà \texttt{var}. Ad esempio, se una classe Java definisce degli ipotetici metodi chiamati \texttt{getName()} e \texttt{setName()}, è possibile accedervi con una proprietà Kotlin denominata \texttt{name}. Se la classe Java definisce, ancora, dei metodi \texttt{isMarried()} e \texttt{setMarried()} per un ipotetico campo booleano, il nome della corrispondente proprietà Kotlin sarà \texttt{isMarried}; per cui, riprendendo l'esempio di classe generica \texttt{Person}, la sintassi delle proprietà sarà la seguente:\\
 
 \begin{lstlisting}[caption={Utilizzo delle proprietà di una classe Kotlin}, captionpos=b, label={lst:exampleProperties}, language=Kotlin]
@@ -187,7 +187,7 @@ public class Customer {
 }
 \end{lstlisting}
 
-Le proprietà di una \texttt{data class} non devono necessariamente essere delle \texttt{val}, tuttavia, come già accennato, l’utilizzo di proprietà read-only è fortemente consigliato in Kotlin, per rendere le istanze di una \texttt{data class} immutabili. Gli oggetti immutabili possono risolvere molti problemi comuni, ad esempio, in parti di codice multithread: una volta creato, l’oggetto rimane nello stato originale e non è necessario preoccuparsi di altri thread che lo possano modificare durante l’esecuzione.
+Le proprietà di una \texttt{data class} non devono necessariamente essere delle \texttt{val}, tuttavia, come già accennato, l’utilizzo di proprietà read-only è fortemente consigliato in Kotlin, per rendere le istanze di una \texttt{data class} immutabili. Gli oggetti immutabili possono risolvere molti problemi comuni, ad esempio, in parti di codice multithread: una volta creato, l’oggetto rimane nello stato originale e non è necessario preoccuparsi di altri thread che lo possano modificare durante l’esecuzione.\\
 Per rendere ancora più semplice l'uso di istanze di data classes come oggetti immutabili, il compilatore Kotlin genera un ulteriore metodo che consente di copiare le istanze di queste classi, modificando, opzionalmente, i valori di alcune proprietà a scelta. Creare una copia è tipicamente una buona alternativa a modificare l'istanza in atto di una classe: la copia, infatti, ha un ciclo di vita separato e non può influenzare le aree del codice che si riferiscono all'istanza originale. È questa la funzione del metodo \texttt{copy()}, e si riporta di seguito un esempio del suo utilizzo:\\
 
 \begin{lstlisting}[caption={Utilizzo della funzione \texttt{copy}}, captionpos=b, label={lst:exampleCopy}, language=Kotlin]
@@ -275,7 +275,7 @@ Una delle funzionalità principali di Kotlin, che risponde perfettamente alla fi
 fun String.lastChar(): Char = this.get(this.length - 1)
 \end{lstlisting}
 
-Come si può notare, tutto ciò che richiede la sintassi delle Extension Functions è inserire il nome della classe o dell'interfaccia che si intende estendere prima del nome della funzione che si sta aggiungendo (separandoli con un punto). Il nome della classe che si vuole estendere è denominato "{\em receiver type}", mentre il valore su cui si sta chiamando la funzione di estensione è chiamato "{\em receiver object}" (nell’esempio si tratta del riferimento a \texttt{this}). Una volta definita, è possibile chiamare la funzione di estensione usando la stessa sintassi utilizzata per i membri ordinari della classe:\\
+Come si può notare, tutto ciò che richiede la sintassi delle Extension Functions è inserire il nome della classe o dell'interfaccia che si intende estendere prima del nome della funzione che si sta aggiungendo (separandoli con un punto). Il nome della classe che si vuole estendere è denominato "{\em receiver type}", mentre il valore su cui si sta chiamando la funzione di estensione è chiamato "{\em receiver object}" (nell'esempio \ref{lst:exampleExtrnsionF} si tratta del riferimento a "\texttt{this}"). Una volta definita, è possibile chiamare la funzione di estensione usando la stessa sintassi utilizzata per i membri ordinari della classe:\\
 
 \begin{lstlisting}[caption={Chiamata di una Extension Function}, captionpos=b, label={lst:exampleExtensionFCalling}, language=Kotlin]
 println ("Hello, Kotlin".lastChar())  //Stampa "n"
@@ -290,6 +290,8 @@ Poiché le funzioni di estensione sono effettivamente solo zucchero sintattico s
 Si noti, infine, che se una classe ha una funzione membro con la stessa signature di una funzione di estensione, la funzione membro ha sempre la precedenza.\\
 
 Le {\bfseries Extension Properties} forniscono un ulteriore modo per estendere le classi con API accessibili utilizzando la sintassi delle proprietà, piuttosto che la sintassi delle funzioni. Anche se sono chiamate "proprietà", esse non possono avere alcuno stato: non è possibile aggiungere ulteriori campi ad istanze esistenti di oggetti Java. Nell'esempio \ref{lst:exampleExtrnsionF} è stata definita una funzione lastChar: nel seguente snippet, verrà convertita in proprietà:\\
+\\
+\\
 
 \begin{lstlisting}[caption={Definizione di una Extension Property}, captionpos=b, label={lst:exampleExtensionP}, language=Kotlin]
 val String.lastChar: Char get() = get(length - 1)
