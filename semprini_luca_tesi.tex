@@ -187,14 +187,25 @@
 
 \onehalfspacing                 % Imposta interlinea a 1,5 ed equivale a \linespread{1,5}
 
+%% Bel layout con Fancy
+\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+\cfoot{}
 
-%% Definisce l'environment abstract per la classe book
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
+
+
 \newenvironment{abstract}%
-    {\cleardoublepage%
+    {\clearemptydoublepage%
         \thispagestyle{empty}%
         \null \vfill\begin{center}%
-            \bfseries \abstractname \end{center}}%
+            \bfseries \phantomsection%
+            \addcontentsline{toc}{chapter}{\abstractname}%
+            \abstractname \end{center}}%
     {\vfill\null}
+
 
 
 \setcounter{secnumdepth}{2}     % Numera fino alla sottosezione nel corpo del testo
@@ -219,7 +230,7 @@
     pdfstartview={FitH},
     pdfauthor={Luca Semprini},
     pdfcopyright={Copyright (C) 2017, Luca Semprini},
-    pdftitle={Kotlin: un nuovo linguaggio per lo sviluppo di applicazioni Android},
+    pdftitle={Una panoramica su Kotlin: il nuovo linguaggio per lo sviluppo di applicazioni Android},
     pdfcontactcountry={Italy},
     pdfcontactemail={luca.semprini10@studio.unibo.it},
     pdflang={it},
@@ -229,18 +240,26 @@
 }
 \usepackage[all]{hypcap}        % sistema i problemi di hyperref
 
+% cleveref va anche dopo hyperref
+\usepackage[%
+    english,italian,    % definizione delle lingue da usare
+    nameinlink          % inserisce i link nei riferimenti
+]{cleveref}                     % permette di usare riferimenti migliori dei \ref e dei varioref
 
 \begin{document}
     \frontmatter
     \pagenumbering{Roman}
+    \pagestyle{empty}
     \input{tex/frontmatter/frontespizio.tex}
     \input{tex/frontmatter/keyword.tex}
-    \input{tex/frontmatter/dedica.tex}
+    % \input{tex/frontmatter/dedica.tex}
     \input{tex/frontmatter/abstract.tex}
     \tableofcontents
 
     \graphicspath{{./img/}}
     \mainmatter
+    \pagenumbering{arabic}
+    \pagestyle{fancy}
     \counterwithin{lstlisting}{section}
     \counterwithin{figure}{section}
     \input{tex/mainmatter/introduzione.tex}
