@@ -5,13 +5,8 @@
 % !TEX TS-program = arara
 % !TeX spellcheck = it-IT
 
-%% Direttive Arara:
-% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
-% arara: frontespizio
-% arara: biber
-% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
-% arara: pdflatex: { shell: yes, synctex: yes, action: nonstopmode, options: "-halt-on-error -file-line-error-style" }
 \chapter{Kotlin in Android}\label{ch:android}
+
 Lo scopo primario dello sviluppo di Kotlin da parte di JetBrains non era, inizialmente, quello di trovare un nuovo linguaggio per sviluppare progetti Android. Tuttavia, appoggiandosi sulla JVM, fin dalla prima release sono state messe a fuoco le sue grandi potenzialità per costruire applicazioni su questa piattaforma. Con il passare dei mesi, questo contesto è divenuto il più popolare ed il più apprezzato dagli estimatori di Kotlin, tanto da portare, in via del tutto prematura e potenzialmente rischiosa, molte software house (ma anche sviluppatori indipendenti) a puntare su questo linguaggio per lo sviluppo delle proprie applicazioni mobile. Questa scommessa viene ripagata il 17 maggio 2017, data in cui il supporto ufficiale di Kotlin per questa piattaforma viene annunciato al Google I / O: da questa conferenza la popolarità del linguaggio di JetBrains cresce a dismisura ed il numero di progetti sviluppati interamente ed esclusivamente in Kotlin aumenta in maniera esponenziale.\\
 
 \section{Perché Kotlin su Android?}
@@ -264,6 +259,7 @@ Di seguito verranno menzionate le librerie più popolari e significative per lo 
 \subsection{Kotlin Android Extensions}
 Questa libreria (a cui ci si riferisce anche con l’acronimo {\bfseries KAE} \footnote{\url{https://kotlinlang.org/docs/tutorials/android-plugin.html}}) non è più considerata tale circa dall'avvento di Kotlin v1.0, in quanto integrata automaticamente all'interno delle dipendenze Gradle per la compilazione di progetti Kotlin. Si tratta di una valida ed economica alternativa alla popolare Butter Knife \footnote{\url{https://github.com/JakeWharton/butterknife}} (scritta in Java ed utilizzata soprattutto per effettuare view-binding semplificato): essendo un plugin integrato nel compilatore Kotlin non richiede aggiuntivo overhead a runtime.\\
 L'import all'interno di un file Kotlin viene effettuato tipicamente in maniera automatica da Android Studio, aggiungendo le linee di codice definite nell'esempio \ref{lst:exAmpleImportKAE}:\\
+\\
 
 \begin{lstlisting}[caption={Import delle Kotlin Android Extensions}, captionpos=b, label={lst:exAmpleImportKAE}, language=Kotlin]
 import kotlinx.android.synthetic.main.<layout>.*      //Oppure
@@ -271,6 +267,8 @@ import kotlinx.android.synthetic.main.<layout>.view.*
 \end{lstlisting}
 
 L'utilizzo di queste Extensions risulta molto intuitivo ed immediato. Si parla di proprietà {\em synthetic} quando ci si riferisce a quella parte della libreria che permette di effettuare il view-binding in stile Butter Knife: per effettuare binding è sufficiente chiamare (ovviamente, successivamente all'invocazione della funzione \texttt{setContentView}) le componenti della view utilizzando semplicemente il loro resource-id definito nel rispettivo file xml; il compilatore effettuerà implicitamente il binding, e sarà possibile riferirsi al componente senza necessità di invocare la funzione \texttt{findViewById} (che richiederebbe la definizione di una nuova variabile da associare al componente).\\
+\\
+\\
 
 \begin{lstlisting}[caption={Utilizzo delle proprietà synthetic di KAE}, captionpos=b, label={lst:exAmpleKAE}, language=Kotlin]
 import android.support.v7.app.AppCompatActivity

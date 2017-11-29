@@ -5,18 +5,12 @@
 % !TEX TS-program = arara
 % !TeX spellcheck = it-IT
 
-%% Direttive Arara:
-% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
-% arara: frontespizio
-% arara: biber
-% arara: pdflatex: { shell: yes, synctex: yes, action: batchmode, options: "-halt-on-error -file-line-error-style" }
-% arara: pdflatex: { shell: yes, synctex: yes, action: nonstopmode, options: "-halt-on-error -file-line-error-style" }
-
 \chapter{La sintassi di Kotlin}\label{ch:sintassi}
-Come accennato nel capitolo precedente, la sintassi di Kotlin è destinata ad essere concisa, ma senza pregiudicare la leggibilità. Essa sostiene la tradizionale struttura a blocchi nidificati basata sulle parentesi graffe, ma presenta anche inferenze implicite di punti e virgola: questo significa che sarà totalmente facoltativo inserirli al termine di un'operazione. I whitespace (tranne gli a capo) sono generalmente non significativi (ad eccezione di stringhe e caratteri letterali), ma in alcuni casi sono necessari per separare alcuni token. La sintassi di Kotlin prende particolarmente spunto da quella di linguaggi come Scala, Groovy e ovviamente Java; gli sviluppatori del team diretto da Andrey Breslav hanno cercato di coniugare le peculiarità di questi linguaggi di riferimento, per creare un nuovo linguaggio JVM che potesse superarne i limiti sintattici e semantici. Il paradigma principale sul quale si fonda è quello ad oggetti, ma inserendovi caratteristiche di tipo funzionale: le funzioni possono essere, quindi, considerate come valori "first-class": hanno tipo, possono essere passate come argomenti, restituite come valori di ritorno e memorizzate in variabili locali, campi di classi ed elementi di array.\\
+
+Come precisato nel \Cref{ch:presentazione}, la sintassi di Kotlin è destinata ad essere concisa, ma senza pregiudicare la leggibilità. Essa sostiene la tradizionale struttura a blocchi nidificati basata sulle parentesi graffe, ma presenta anche inferenze implicite di punti e virgola: questo significa che sarà totalmente facoltativo inserirli al termine di un'operazione. I whitespace (tranne gli a capo) sono generalmente non significativi (ad eccezione di stringhe e caratteri letterali), ma in alcuni casi sono necessari per separare alcuni token. La sintassi di Kotlin prende particolarmente spunto da quella di linguaggi come Scala, Groovy e ovviamente Java; gli sviluppatori del team diretto da Andrey Breslav hanno cercato di coniugare le peculiarità di questi linguaggi di riferimento, per creare un nuovo linguaggio JVM che potesse superarne i limiti sintattici e semantici. Il paradigma principale sul quale si fonda è quello ad oggetti, ma inserendovi caratteristiche di tipo funzionale: le funzioni possono essere, quindi, considerate come valori "first-class": hanno tipo, possono essere passate come argomenti, restituite come valori di ritorno e memorizzate in variabili locali, campi di classi ed elementi di array.\\
 
 \section{Esempio di Hello World}
-Per inquadrare la sintassi basilare del linguaggio, si riporta di seguito un esempio classico di un programma che stampi "Hello, world": in Kotlin esso consiste in una singola funzione:\\
+Per inquadrare la sintassi basilare del linguaggio, si riporta di seguito un esempio (\ref{lst:exampleHelloWorld}) classico di un programma che stampi "Hello, world": in Kotlin esso consiste in una singola funzione:\\
 \\
 
 \begin{lstlisting}[caption={Hello World}, captionpos=b, label={lst:exampleHelloWorld}, language=Kotlin]
@@ -27,7 +21,7 @@ fun main(args: Array<String>) {
 
 Da questo primo snippet di codice si possono facilmente notare (e intuire) le caratteristiche sintattiche principali del linguaggio:
 \begin{itemize}
-  \item Viene utilizzata la parola chiave \texttt{fun} per dichiarare una funzione.
+  \item Viene utilizzata la parola chiave {\bfseries \texttt{fun}} per dichiarare una funzione.
   \item Il tipo del parametro in ingresso viene scritto dopo l’identificativo, separandoli con i due punti. Questo vale anche per le dichiarazioni di variabili.
   \item Una funzione può essere dichiarata al top-level in un file Kotlin, dunque non necessariamente all’interno di una classe.
   \item Gli array sono semplicemente classi: a differenza di Java, Kotlin non dispone di una sintassi specifica per la dichiarazione di array.
@@ -36,9 +30,9 @@ Da questo primo snippet di codice si possono facilmente notare (e intuire) le ca
 \end{itemize}
 
 Un’altra particolarità del linguaggio riguarda i blocchi \texttt{if-else}: non si tratta di uno statement, ma di una vera e propria espressione. La differenza sta nel fatto che una espressione ha un valore che può
-essere utilizzato come parte di un'altra espressione, mentre uno statement è sempre un elemento top-level nel suo blocco, e non ha un proprio valore. Mentre in Java, tutte le strutture di controllo sono statements, qui la maggior parte di esse, ad eccezione dei loop (\texttt{for}, \texttt{do} e \texttt{do-while}) sono espressioni.
+essere utilizzato come parte di un'altra espressione, mentre uno statement è sempre un elemento top-level nel suo blocco, e non ha un proprio valore. Mentre in Java, tutte le strutture di controllo sono statements, qui la maggior parte di esse, ad eccezione dei loop (\texttt{for}, \texttt{do} e \texttt{do-while}) sono espressioni.\\
 La possibilità di combinare strutture di controllo con altre espressioni consente di esprimere molti pattern comuni in maniera più potente e concisa. D'altra parte, le assegnazioni sono espressioni in Java e diventano statements in Kotlin: ciò consente di evitare la confusione tra confronti e assegnazioni, che è spesso una tipica fonte di errori.\\
-In Kotlin è possibile semplificare le funzioni il cui corpo consiste in una singola espressione: rimuovendo le parentesi graffe e l'istruzione \texttt{return}, e sostituendoli con l'operatore "\texttt{=}", seguito appunto dalla singola espressione si otterrà quella che viene chiamata inline-function:
+In Kotlin è possibile semplificare le funzioni il cui corpo consiste in una singola espressione: rimuovendo le parentesi graffe e l'istruzione \texttt{return}, e sostituendoli con l'operatore "\texttt{=}", seguito appunto dalla singola espressione si otterrà quella che viene chiamata {\bfseries inline-function}:
 
 \begin{lstlisting}[caption={Inline-function}, captionpos=b, label={lst:exampleInlineFunction}, language=Kotlin]
 fun max(a: Int, b: Int): Int = if (a > b) a else b
@@ -46,8 +40,7 @@ fun max(a: Int, b: Int): Int = if (a > b) a else b
 
 Questo tipo di funzioni sono chiamate, in Kotlin, anche funzioni con expression body, mentre le classiche funzioni con le parentesi graffe hanno un block body; IntelliJ IDEA fornisce una funzionalità in cui può suggerire di scambiare in maniera trasparente i due stili: "Convert to expression body", "Convert to block body".\\
 
-Nel caso preso in esempio, è, inoltre, possibile omettere la dichiarazione del tipo di ritorno:
-per funzioni di tipo expression-body, infatti, il compilatore può analizzare l'espressione usata come corpo della funzione e utilizzare il suo tipo come tipo di ritorno di funzione, anche quando non viene dichiarato in modo esplicito. Questo tipo di analisi prende tipicamente il nome di inferenza di tipo. Si noti che l'omissione del tipo di ritorno è consentita solo per funzioni con un'espressione come corpo.\\
+Nel caso preso in esame nell'esempio \ref{lst:exampleInlineFunction}, è, inoltre, possibile omettere la dichiarazione del tipo di ritorno: per funzioni di tipo expression-body, infatti, il compilatore può analizzare l'espressione usata come corpo della funzione e utilizzare il suo tipo come tipo di ritorno di funzione, anche quando non viene dichiarato in modo esplicito. Questo tipo di analisi prende tipicamente il nome di inferenza di tipo. Si noti che l'omissione del tipo di ritorno è consentita solo per funzioni con un'espressione come corpo.\\
 
 \section{Variabili e String Templates}
 La dichiarazione di una variabile, in Kotlin, viene effettuata digitando inizialmente una keyword:
@@ -57,8 +50,7 @@ La dichiarazione di una variabile, in Kotlin, viene effettuata digitando inizial
   \item {\bfseries\texttt{val}}: Riferimento mutabile. Il valore di tale variabile può essere modificato: questa dichiarazione corrisponde a una normale variabile Java (non \texttt{final}).
 \end{itemize}
 
-Successivamente va digitato l'identificativo, e infine, facoltativamente, il tipo: infatti, il compilatore permette l'inferenza di tipo anche per la dichiarazione di variabili, anche se, ovviamente, il compilatore non può dedurre il tipo se non si forniscono informazioni sui valori che possono
-essere assegnati a questa variabile (quindi nel caso di non specificazione del tipo, va sempre eseguito un assegnamento). Si noti, quindi, l'equivalenza delle seguenti scritture:
+Successivamente va digitato l'identificativo, e infine, facoltativamente e preceduto dal carattere "\texttt{:}", il tipo: infatti, il compilatore permette l'inferenza di tipo anche per la dichiarazione di variabili, anche se, ovviamente, il compilatore non può dedurre il tipo se non si forniscono informazioni sui valori che possono essere assegnati a questa variabile (quindi nel caso di non specificazione del tipo, va sempre eseguito un assegnamento). Si noti, quindi, l'equivalenza delle seguenti scritture:
 
 \begin{lstlisting}[caption={Inferenza di tipo}, captionpos=b, label={lst:exampleInferenzaDiTipo}, language=Kotlin]
 val number: Int = 1 //Tipo esplicitato
@@ -69,13 +61,14 @@ Per quanto riguarda il sistema di tipi, in Kotlin esiste un singolo tipo di root
 
 Nella gestione delle stringhe, Kotlin aggiunge una funzionalità che semplifica diverse situazioni: essa viene denominata "{\em String templates}". Come molti linguaggi di scripting, Kotlin permette di fare riferimento a variabili locali nelle rappresentazioni di stringhe, mettendo il carattere "\texttt{\$}" davanti al nome della variabile che si desidera chiamare (se vi è la necessità di inserire il carattere "\texttt{\$}" all’interno di una stringa è possibile utilizzare l’operatore di escape "\texttt{\textbackslash}" prima del carattere stesso). Questo equivale alla concatenazione stringhe in Java (\texttt{"Chiamata " + variabile + " in Java"}), ma risulta molto più compatto e altrettanto efficiente, inoltre, le espressioni vengono controllate staticamente e il codice non verrà compilato se si tenta di fare riferimento a una variabile che non esiste. Oltre alle semplici variabili, è possibile inserire in uno String template anche espressioni più complesse, semplicemente circondandole da parentesi graffe (questa notazione permette anche di nidificare le doppie virgolette all'interno di una rappresentazione di stringa):\\
 
-\begin{lstlisting}[caption={String Template}, captionpos=b, label={lst:exampleStringTemplate}, language=Kotlin]
+\begin{lstlisting}[caption={String Template all'interno di una \texttt{println}}, captionpos=b, label={lst:exampleStringTemplate}, language=Kotlin]
 fun main(args: Array<String>) {
   println("Hello, ${if (args.size > 0) args[0] else "someone"}!")
 }
 \end{lstlisting}
 
 \section{Classi e Proprietà}
+
 Il linguaggio di JetBrains introduce importanti novità soprattutto nell’ambito dei costruttori e dei campi delle classi. In Java, il corpo del costruttore contiene spesso codice che risulta interamente ripetitivo: assegna, per esempio, i parametri ai campi con nomi corrispondenti; in Kotlin, questa logica può essere espressa senza troppo boilerplate: viene introdotta la possibilità di inserire i campi che in Java sarebbero stati rappresentati come parametri del costruttore direttamente nella dichiarazione della classe, assegnandoli direttamente ai campi corrispettivi.\\
 
 \begin{lstlisting}[caption={Classe \texttt{Person} con una proprietà \texttt{name}}, captionpos=b, label={lst:exampleClassDeclaration}, language=Kotlin]
@@ -189,6 +182,7 @@ public class Customer {
 
 Le proprietà di una \texttt{data class} non devono necessariamente essere delle \texttt{val}, tuttavia, come già accennato, l’utilizzo di proprietà read-only è fortemente consigliato in Kotlin, per rendere le istanze di una \texttt{data class} immutabili. Gli oggetti immutabili possono risolvere molti problemi comuni, ad esempio, in parti di codice multithread: una volta creato, l’oggetto rimane nello stato originale e non è necessario preoccuparsi di altri thread che lo possano modificare durante l’esecuzione.\\
 Per rendere ancora più semplice l'uso di istanze di data classes come oggetti immutabili, il compilatore Kotlin genera un ulteriore metodo che consente di copiare le istanze di queste classi, modificando, opzionalmente, i valori di alcune proprietà a scelta. Creare una copia è tipicamente una buona alternativa a modificare l'istanza in atto di una classe: la copia, infatti, ha un ciclo di vita separato e non può influenzare le aree del codice che si riferiscono all'istanza originale. È questa la funzione del metodo \texttt{copy()}, e si riporta di seguito un esempio del suo utilizzo:\\
+\\
 
 \begin{lstlisting}[caption={Utilizzo della funzione \texttt{copy}}, captionpos=b, label={lst:exampleCopy}, language=Kotlin]
 val bob = Person("Bob", true)
@@ -196,6 +190,7 @@ println(bob.copy(isMarried = false)) // Stampa "Person(name="Bob", isMarried=fal
 \end{lstlisting}
 
 \section{Cicli: operatori \texttt{when} e di range}
+
 L’operatore \texttt{when} può essere pensato come corrispondente dello \texttt{switch} statement in Java, anche se incapsula alcune funzionalità che lo rendono più potente e molto più utilizzato e utilizzabile. Innanzitutto, come la struttura \texttt{if-else}, \texttt{when} è un'espressione che restituisce un valore: è possibile quindi scrivere una funzione con un expression body, restituendo direttamente l'espressione corrispondente al \texttt{when}.\\
 Il codice trova il ramo corrispondente al valore della variabile passata in input all’operatore (a differenza di Java, non è necessario inserire istruzioni \texttt{break} in ogni ramo), se c’è un valore di un ramo che fa match con quello passato in input, solo quest’ultimo viene eseguito. A differenza dello \texttt{switch} statement, che richiede di utilizzare costanti (costanti \texttt{enum}, stringhe o numeri) come condizioni, con \texttt{when} è possibile utilizzare qualsiasi oggetto. Si noti nell'esempio successivo (\ref{lst:exampleWhen}) la definizione di una inline function che utilizza un \texttt{when} statement con due istanze della \texttt{enum class} \texttt{Color}:\\
 
@@ -222,7 +217,9 @@ Come è stato appena menzionato, in Kotlin non c'è il for loop classico di Java
 val oneToTen = 1..10
 \end{lstlisting}
 
-Si noti che gli intervalli in Kotlin sono chiusi o inclusivi, il che significa anche il secondo valore (il limite superiore del range) risulta sempre parte della gamma. Questi costrutti, espressi su valori interi, possono essere utilizzati, appunto, in maniera elementare per eseguire dei loop su tutti i valori del range: in questo caso tale intervallo è chiamato "{\em progression}". È possibile utilizzare l'operatore \texttt{in} in espressioni condizionali per verificare l’appartenenza di un valore ad un intervallo, oppure il suo opposto (\texttt{!in}) per verificarne la non-appartenenza. Oltre che con valori interi, i range possono essere utilizzati anche per i \texttt{character}, ma non solo: con una qualsiasi classe che supporta il confronto fra istanze (implementando l'interfaccia \texttt{java.lang.Comparable}) è possibile creare dei range di istanze di tale classe. Si riporta di seguito un esempio dell'utilizzo dell'operatore di range all'interno di un'espressione \texttt{when}:\\
+Si noti che gli intervalli in Kotlin sono chiusi o inclusivi, il che significa anche il secondo valore (il limite superiore del range) risulta sempre parte della gamma. Questi costrutti, espressi su valori interi, possono essere utilizzati, appunto, in maniera elementare per eseguire dei loop su tutti i valori del range: in questo caso tale intervallo è chiamato "{\em progression}". È possibile utilizzare l'operatore \texttt{in} in espressioni condizionali per verificare l’appartenenza di un valore ad un intervallo, oppure il suo opposto (\texttt{!in}) per verificarne la non-appartenenza.\\
+Oltre che con valori interi, i range possono essere utilizzati anche per i \texttt{character}, ma non solo: con una qualsiasi classe che supporta il confronto fra istanze (implementando l'interfaccia \texttt{java.lang.Comparable}) è possibile creare dei range di istanze di tale classe. Si riporta di seguito un esempio dell'utilizzo dell'operatore di range all'interno di un'espressione \texttt{when}:\\
+\\
 
 \begin{lstlisting}[caption={Operatore di range con valori interi all'interno di una espressione \texttt{when}}, captionpos=b, label={lst:exampleRangeWhen}, language=Kotlin]
 val myInt = 12
@@ -290,8 +287,6 @@ Poiché le funzioni di estensione sono effettivamente solo zucchero sintattico s
 Si noti, infine, che se una classe ha una funzione membro con la stessa signature di una funzione di estensione, la funzione membro ha sempre la precedenza.\\
 
 Le {\bfseries Extension Properties} forniscono un ulteriore modo per estendere le classi con API accessibili utilizzando la sintassi delle proprietà, piuttosto che la sintassi delle funzioni. Anche se sono chiamate "proprietà", esse non possono avere alcuno stato: non è possibile aggiungere ulteriori campi ad istanze esistenti di oggetti Java. Nell'esempio \ref{lst:exampleExtrnsionF} è stata definita una funzione lastChar: nel seguente snippet, verrà convertita in proprietà:\\
-\\
-\\
 
 \begin{lstlisting}[caption={Definizione di una Extension Property}, captionpos=b, label={lst:exampleExtensionP}, language=Kotlin]
 val String.lastChar: Char get() = get(length - 1)
